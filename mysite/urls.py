@@ -24,5 +24,6 @@ urlpatterns = [
     path('time/', views.current_datetime),
     path('time/plus/<int:offset>', views.hours_ahead),
     path('math/<num_1>/<num_2>/', views.mathematics),
-    path('valid-date/<int:year>/<int:month>/<int:day>/', views.validate_date)
+    path('valid-date/<int:year>/<int:month>/<int:day>/', views.validate_date),
+    path('current-time/', views.current_datetime_2),
 ]
