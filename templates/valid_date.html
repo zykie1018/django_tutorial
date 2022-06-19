@@ -1,0 +1,31 @@
+{% extends 'base_exer_2.html' %}
+
+{% block title%} Date {% endblock %}
+
+{% block content %}
+    <main>
+        <h1>This page displays a valid date</h1>
+        <br>
+        
+        <section>
+            <h2>Given date is {{ given_date }}</h2>
+        </section>
+
+        <hr>
+        <article>
+            <header>
+                <h2>Django Training Day 1</h2>
+            </header>
+
+            <blockquote>
+                <p>
+                    {% lorem 10 w random %}
+                    <aside>Dont imitate, understand</aside>
+                </p>
+            </blockquote>
+            <footer>
+                Contact Me
+            </footer>
+        </article>
+    </main>
+{% endblock %}

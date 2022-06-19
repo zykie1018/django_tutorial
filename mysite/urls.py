@@ -26,4 +26,6 @@ urlpatterns = [
     path('math/<num_1>/<num_2>/', views.mathematics),
     path('valid-date/<int:year>/<int:month>/<int:day>/', views.validate_date),
     path('current-time/', views.current_datetime_2),
+    path('athletes/', views.print_athlete_list),
+    path('students/', views.print_a_dictionary),
 ]

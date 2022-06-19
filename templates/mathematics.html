@@ -1,0 +1,40 @@
+{% extends 'base_exer_2.html' %}
+
+{% block title%} Mathematics {% endblock %}
+
+{% block content %}
+    <main>
+        <h1>This page displays mathematical operations</h1>
+        <br>
+
+        <section>
+            <h2>Let us do some operations on the following numbers <em>{{ first_value }}</em> and <em>{{ second_value }}</em></h2>
+        </section>
+
+        <section>
+            <ul>
+                <li>Sum = {{ display_sum }}</li>
+                <li>Difference = {{ display_diff }}</li>
+                <li>Product = {{ display_product }}</li>
+                <li>Quotient = {{ display_quotient }}</li>
+            </ul>
+        </section>
+
+        <hr>
+        <article>
+            <header>
+                <h2>Django Training Day 1</h2>
+            </header>
+
+            <blockquote>
+                <p>
+                    {% lorem 10 w random %}
+                    <aside>Dont imitate, understand</aside>
+                </p>
+            </blockquote>
+            <footer>
+                Contact Me
+            </footer>
+        </article>
+    </main>
+{% endblock %}

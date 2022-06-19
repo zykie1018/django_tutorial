@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Printing a dictionary {% endblock %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Grades</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% comment %} 1st approach for printing a dictionary {% endcomment %}
+        {% for students in student_list %}
+            <tr>
+                <td>{{ students.id }}</td>
+                <td>{{ students.name }}</td>
+                <td>{{ students.grades }}</td>
+            </tr>
+        {% endfor%} 
+        
+        {% comment %} 2nd approach for printing a dictionary {% endcomment %}
+        {% comment %} {% for dictionary in student_list %}
+            {% for values in dictionary.items %}
+                <tr>
+                    <td>{{ values. }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %} {% endcomment %}
+    </tbody>
+</table>
+
+{% endblock %}

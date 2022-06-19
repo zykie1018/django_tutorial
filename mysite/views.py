@@ -29,6 +29,7 @@ def hours_ahead(request, offset):
     )
 
 
+# Exer 2 math and valid_date
 def mathematics(request, num_1, num_2):
     try:
         inp_1 = int(num_1)
@@ -40,24 +41,38 @@ def mathematics(request, num_1, num_2):
     difference = inp_1 - inp_2
     product = inp_1 * inp_2
     quotient = inp_1 / inp_2
-    html = f"<html><body>Sum: {sum_of_numbers}, Difference: {difference}, Product: {product}, Quotient: {quotient}</body></html"
-    return HttpResponse(html)
+    
+    return render(request,
+                  'mathematics.html',
+                  {'first_value': inp_1,
+                   'second_value': inp_2,
+                   'display_sum': sum_of_numbers,
+                   'display_diff': difference,
+                   'display_product': product,
+                   'display_quotient': "{:.3f}".format(quotient),
+                   }
+    )
 
 
 def validate_date(request, year, month, day):
-    date_is_validate = True
+    # date_is_validated = True
     try:
-        given_date = datetime(int(year), int(month), int(day))
+        given_date = datetime.datetime(int(year), int(month), int(day))
 
     except ValueError:
-        raise Http404()
-
-    if date_is_validate:
-        html = f"<html><body>{given_date} is a valid date</body></html>"
-    else:
-        html = f"<html><body>{given_date} is not a valid date</body></html>"
+        raise Http404("Invalid Date")
     
-    return HttpResponse(html)
+    return render(request,
+                  'valid_date.html',
+                  {'given_date': given_date.strftime("%Y/%m/%d")}
+    )
+
+    # if date_is_validated:
+    #     html = f"<html><body>{given_date} is a valid date</body></html>"
+    # else:
+    #     html = f"<html><body>{given_date} is not a valid date</body></html>"
+    
+    # return HttpResponse(html)
 
 
 def current_datetime_2(request):
@@ -69,3 +84,38 @@ def current_datetime_2(request):
                 {'current_date': now},
     )
     # return HttpResponse(html)
+    
+        
+def print_athlete_list(request):
+    try:
+        
+        ID = [1, 2, 3, 4]
+        name = ["John", "Smith", "Ray", "Happy"]
+        sport = ["basketball", "soccer", "baseball", "basketball"]
+    
+        athletes = zip(ID, name, sport)
+    except ValueError:
+        raise Http404()
+    
+    return render(request,
+                  'athlete.html',
+                  {"athletes_list": athletes},
+    )
+    
+
+def print_a_dictionary(request):
+    try:
+        students = [
+            {"id": 1, "name": "John", "grades": 95},
+            {"id": 2, "name": "Smith", "grades": 87},
+            {"id": 3, "name": "Ray", "grades": 75},
+            {"id": 4, "name": "Happy", "grades": 85},
+            
+        ]
+    except ValueError:
+        raise Http404()
+
+    return render(request,
+                  'student.html',
+                  {'student_list': students},
+    )

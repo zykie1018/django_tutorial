@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} Printing Athletes in a List {% endblock %}
+
+{%block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>sport</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for athlete in athletes_list %}
+            <tr>
+                <td>{{ athlete.0 }}</td>
+                <td>{{ athlete.1 }}</td>
+                <td>{{ athlete.2 }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p> {{ athletes }} </p>
+
+{% endblock %}
