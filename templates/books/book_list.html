@@ -2,7 +2,11 @@
 
 {% block content %}
     <p>
-        {{ output }}
+        {% for book in book_list %}
+        <ul>
+            <a href="{% url 'books:book-details' book.id %}"><li>{{ book.title }}</li></a>
+        </ul>
+        {% endfor%}
     </p>
-    <button>Title</button>
+    <a href="">Title</a>
 {% endblock %}

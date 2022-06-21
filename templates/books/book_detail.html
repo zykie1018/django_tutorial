@@ -1,0 +1,15 @@
+{% extends 'books/base_exer_3.html' %}
+
+{% block content %}
+    <p>
+        <dl>
+            <h1>{{ book_detail }}</h1>
+            {% for author in book_detail.authors.all %}
+              <a href="{% url 'books:author-details' author.id %}"><dt>{{ author }}</dt></a>
+            {% endfor %}
+            <dt>{{ book_detail.publisher }}</dt>
+            <dt>{{ book_detail.classification }}</dt>
+            <dt>{{ book_detail.publication_date }}</dt>
+        </dl>
+    </p>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Authors</title>
+</head>
+<body>
+  <dl>
+    <dt>First Name:</dt>
+    <dd>{{ author_detail.first_name }}</dd>
+    <dt>Last Name:</dt>
+    <dd>{{ author_detail.last_name }}</dd>
+    <dt>Email:</dt>
+    <dd>{{ author_detail.email }}</dd>
+  </dl>
+  <h1>Books by {{ author_detail }}</h1>
+  {% for book in book_detail %}
+   <ul>
+      <a href="{% url 'books:book-details' book.id %}"><li>{{ book }}</li></a>
+   </ul>
+  {% endfor %}
+</body>
+</html>

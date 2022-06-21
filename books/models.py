@@ -51,14 +51,15 @@ class Book(models.Model):
     
     def was_published_recently(self):
         date_today = timezone.now().date()
-        return self.publication_date >= date_today - datetime.timedelta(days=1)
+        return self.publication_date >= date_today - datetime.timedelta(days=1)   
+    
         
     def __str__(self):
         return f"{self.title}"
     
 
 class Classification(models.Model):
-    code = models.CharField(max_length=3)
+    code = models.CharField(_("Code"), max_length=3)
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=255)
    
