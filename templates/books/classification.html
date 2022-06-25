@@ -1,0 +1,11 @@
+{% extends 'books/base_exer_3.html' %}
+
+{% block content %}
+    <h1>Classification</h1>
+
+    {% for classify in classify_list %}
+        <ul>
+            <a href="{% url 'books:classification-display' %}"><li>{{ classify }}</li></a>
+        </ul>
+    {% endfor %}
+{% endblock %}
