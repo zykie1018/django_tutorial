@@ -4,5 +4,9 @@
     <h1>Login Page</h1>
     <strong>Welcome {{ username }}</strong>
     
+    {% if user.is_authenticated %}
     <a href="{% url 'books:logout' %}">Logout</a>
+    {% endif %}
+    <p><a href="{% url 'books:index' %}">Go to list of books</a></p>
+    
 {% endblock %}

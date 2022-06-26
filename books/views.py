@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.generic import TemplateView, View
 
@@ -239,6 +240,7 @@ class PublisherDeleteView(View):
         return render(request, self.template_name, {"form": form})
 
 
+@login_required(login_url="books:login")
 def index(request):
     book_list = Book.objects.all()
     # output = [book for book in book_list]
@@ -259,6 +261,7 @@ def index(request):
 #                       'books/search_form.html')
 
 
+@login_required(login_url="books:login")
 def detail(request, pk):
     try:
         book = Book.objects.get(pk=pk)
@@ -283,6 +286,7 @@ def detail(request, pk):
 #     )
 
 
+@login_required(login_url="books:login")
 def author_details(request, author_id):
     book_detail = Book.objects.filter(authors=author_id)
     author_detail = Author.objects.get(id=author_id)
@@ -293,6 +297,7 @@ def author_details(request, author_id):
     )
 
 
+@login_required(login_url="books:login")
 def classify_books(request):
     classify_list = Classification.objects.all()
     return render(
