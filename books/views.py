@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.views.generic import TemplateView, View
 from books.decorators import allowed_user
@@ -34,7 +34,9 @@ class AboutView(TemplateView):
 """ ADDING OF AUTHORS, BOOKS, PUBLISHERS """
 
 
-class MyFormView(LoginRequiredMixin, View):
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
+class MyFormView(View):
     form_class = AuthorForm
     initial = {"key": "value"}
     template_name = "books/author.html"
@@ -56,6 +58,8 @@ class MyFormView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class BookAddView(View):
     form_class = BookForm
     initial = {"key": "value"}
@@ -76,6 +80,8 @@ class BookAddView(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class PublisherAddView(View):
     form_class = PublisherForm
     initial = {"key": "value"}
@@ -103,6 +109,8 @@ get the .id of whichever model instance used
 """
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class AuthorUpdateView(View):
     form_class = AuthorUpdateForm
     initial = {"key": "value"}
@@ -125,6 +133,8 @@ class AuthorUpdateView(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class BookUpdateView(View):
     form_class = BookUpdateForm
     initial = {"key": "value"}
@@ -147,6 +157,8 @@ class BookUpdateView(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class PublisherUpdateView(View):
     form_class = PublisherUpdateForm
     initial = {"key": "value"}
@@ -176,6 +188,8 @@ get the .id of whichever model instance used
 """
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class AuthorDeleteView(View):
     form_class = AuthorDeleteForm
     initial = {"key": "value"}
@@ -198,6 +212,8 @@ class AuthorDeleteView(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class BookDeleteView(View):
     form_class = BookDeleteForm
     initial = {"key": "value"}
@@ -220,6 +236,8 @@ class BookDeleteView(View):
         return render(request, self.template_name, {"form": form})
 
 
+@method_decorator(login_required(login_url="books:login"), name="dispatch")
+@method_decorator(allowed_user(allowed_roles=["Admin"]), name="dispatch")
 class PublisherDeleteView(View):
     form_class = PublisherDeleteForm
     initial = {"key": "value"}
@@ -311,6 +329,8 @@ def classify_books(request):
     )
 
 
+@login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def contact(request):
     if request.method == "POST":  # If the form has been submitted...
         form = ContactForm(request.POST)  # A form bound to the POST data
@@ -333,6 +353,8 @@ def contact(request):
 #     )
 
 
+@login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def display_classify_books(request):
     classify_books = Classification.objects.all()
     return render(
@@ -382,6 +404,8 @@ def user_logout(request):
     return HttpResponseRedirect(reverse("books:login"))
 
 
+@login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def search(request):
     error = False
     if "q" in request.GET:
@@ -398,6 +422,8 @@ def search(request):
     return render(request, "books/search_form.html", {"error": error})
 
 
+@login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def search_author(request):
     error = False
     if "query" in request.GET:
@@ -418,6 +444,8 @@ def search_author(request):
     )
 
 
+@login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def search_publisher(request):
     error = False
     if "query" in request.GET:
