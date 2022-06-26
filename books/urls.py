@@ -57,4 +57,7 @@ urlpatterns = [
     path("search/author", views.search_author, name="search-author"),
     path("search/publisher", views.search_publisher, name="search-publisher"),
     path("about/", AboutView.as_view()),
+    path("login/", views.user_login, name="login"),
+    path("logout/", views.user_logout, name="logout"),
+    path("register/", views.user_register, name="register"),
 ]

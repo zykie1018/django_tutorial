@@ -1,8 +1,9 @@
 from xml.dom import ValidationErr
+from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.views.generic import TemplateView, View
 
@@ -18,6 +19,8 @@ from books.forms import (
     AuthorDeleteForm,
     BookDeleteForm,
     PublisherDeleteForm,
+    LoginForm,
+    RegisterForm,
 )
 
 
@@ -326,25 +329,46 @@ def display_classify_books(request):
     )
 
 
-def login(request):
-    username = request.POST["username"]
-    password = request.POST["password"]
-    user = authenticate(username=username, password=password)
+def user_login(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if form.is_valid():
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
 
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-
-            return render(request, "books/login_success.html", {"username": username})
-        else:
-            pass
+                    return render(
+                        request, "books/login_page.html", {"username": username}
+                    )
+                else:
+                    return HttpResponse("The username and password were incorrect")
 
     else:
-        pass
+        form = LoginForm()
+
+    return render(request, "books/login.html", {"form": form})
 
 
-def logout_view(request):
-    return HttpResponseRedirect()
+def user_register(request):
+    form = RegisterForm
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # login(request, user)
+            messages.success(request, "Successfully Registered")
+            return redirect("books:register")
+        else:
+            return redirect("books:register")
+    return render(request, "books/register.html", {"form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("books:login"))
 
 
 def search(request):

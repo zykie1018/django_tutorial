@@ -1,0 +1,15 @@
+{% extends 'books/base_exer_3.html' %}
+
+{% block content %}
+  <h1>Register New User</h1>
+  {% include 'books/messages.html' %}
+  {% comment %} {% if form.errors %}
+    {{ form.errors }}
+  {% endif %} {% endcomment %}
+    <form>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register">
+      </form>
+      <p> Already have an account? <a href="{% url 'books:login' %}">Back to Login</a></p>
+{% endblock %}
