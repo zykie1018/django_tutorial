@@ -5,8 +5,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.views.generic import TemplateView, View
+from books.decorators import allowed_user
 
 from books.models import Book, Author, Classification, Publisher
 from books.forms import (
@@ -32,7 +34,7 @@ class AboutView(TemplateView):
 """ ADDING OF AUTHORS, BOOKS, PUBLISHERS """
 
 
-class MyFormView(View):
+class MyFormView(LoginRequiredMixin, View):
     form_class = AuthorForm
     initial = {"key": "value"}
     template_name = "books/author.html"
@@ -241,6 +243,7 @@ class PublisherDeleteView(View):
 
 
 @login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def index(request):
     book_list = Book.objects.all()
     # output = [book for book in book_list]
@@ -262,6 +265,7 @@ def index(request):
 
 
 @login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def detail(request, pk):
     try:
         book = Book.objects.get(pk=pk)
@@ -287,6 +291,7 @@ def detail(request, pk):
 
 
 @login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def author_details(request, author_id):
     book_detail = Book.objects.filter(authors=author_id)
     author_detail = Author.objects.get(id=author_id)
@@ -298,6 +303,7 @@ def author_details(request, author_id):
 
 
 @login_required(login_url="books:login")
+@allowed_user(allowed_roles=["Admin", "User"])
 def classify_books(request):
     classify_list = Classification.objects.all()
     return render(
