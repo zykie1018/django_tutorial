@@ -1,0 +1,12 @@
+{% extends 'books/base_exer_3.html' %}
+
+{% block content %}
+    <h1>Search for a Publisher</h1>
+    {% if error %}
+        <p style="color: red;" >Please submit a search term</p>
+    {% endif %}
+    <form action="" method="get">
+        <input type="text" name="query">
+        <input type="submit" value="Search">
+    </form>
+{% endblock %}

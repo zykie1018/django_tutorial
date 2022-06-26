@@ -1,0 +1,13 @@
+{% extends 'books/base_exer_3.html' %}
+
+{% block content %}
+    <h1>Delete Author</h1>
+    <hr>
+    {% include 'books/messages.html' %}
+    <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Delete">
+    </form>
+    
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'books/base_exer_3.html' %}
+
+{% block content %}
+    {% include "books/search_publishers.html" %}
+    {% if publishers %}
+    <p>Found {{ publishers|length }} publisher{{ publisher|pluralize }}.</p>
+    <ul>
+        {% for publisher in publishers %}
+            <li>{{ publisher.name }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No authors matched your search criteria.</p>
+    {% endif %}
+{% endblock %}
